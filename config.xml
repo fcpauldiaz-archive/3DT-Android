@@ -114,4 +114,11 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <plugin name="cordova-plugin-keyboard" spec="~1.1.5" />
+    <engine name="android" spec="~6.1.2" />
+    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
+    <feature name="Toast">
+  <param name="android-package" value="nl.xservices.plugins.Toast" />
+</feature>
+<gap:plugin name="cordova-plugin-x-toast" source="npm" />
 </widget>

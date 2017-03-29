@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -34,8 +36,15 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        
         var gl;
-  
+        //0 = rotate
+        //1 = scale
+        //2 = translate
+        //3 = shear
+        var currentTransformation = 0;
+    
+        
 
         var mvMatrix = mat4.create();
         var mvMatrixStack = [];
@@ -685,9 +694,10 @@ var app = {
             // these require 2 pointers
             var pinch = new Hammer.Pinch();
             var pan = new Hammer.Pan();
-
+            var swipe = new Hammer.Swipe();
+            pan.recognizeWith(swipe);
             // add to the Manager
-            mc.add([pinch, pan]);
+            mc.add([pinch, pan, swipe]);
 
 
             mc.on("pinchin", function(ev) {
@@ -709,6 +719,44 @@ var app = {
             mc.on("pandown", function(ev) {
                  xSpeed += 1;
             });
+            mc.on("swiperight", function (ev) {
+                currentTransformation--;
+                switch(currentTransformation) {
+                    case 0: //rotate
+                        window.plugins.toast.showLongBottom('Rotation');
+                        break;
+                    case 1: //scale
+                        window.plugins.toast.showLongBottom('Scale');
+                        break;
+                    case 2: //translate
+                        window.plugins.toast.showLongBottom('Translate');
+                        break;
+                    case 3: //shear
+                        window.plugins.toast.showLongBottom('Shear');
+                        break;
+                    case 4:
+                }
+
+            });
+            mc.on("swipeleft", function (ev) {
+                 currentTransformation++;
+                 switch(currentTransformation) {
+                    case 0: //rotate
+                        window.plugins.toast.showLongBottom('Rotation');
+                        break;
+                    case 1: //scale
+                        window.plugins.toast.showLongBottom('Scale');
+                        break;
+                    case 2: //translate
+                        window.plugins.toast.showLongBottom('Translate');
+                        break;
+                    case 3: //shear
+                        window.plugins.toast.showLongBottom('Shear');
+                        break;
+                    case 4:
+                }
+            });
+
 
             tick();
         }
