@@ -1452,6 +1452,20 @@ var app = {
                      window.plugins.toast.showLongBottom('House active');
                 }
             });
+            var onShake = function () {
+              open = !open;
+                if (open === true) {
+                var sound = document.getElementById("audio");
+                audio.pause();
+                audio.currentTime = 0;
+                audio.play();
+                }
+                else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+            };
+            shake.startWatch(onShake, 40 /*, onError */);
 
 
             tick();
